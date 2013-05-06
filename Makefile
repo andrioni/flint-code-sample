@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-O3 -ansi -Wall -Werror -pedantic
 DEBUGFLAGS=-g -ansi -Wall -Werror -pedantic
-LDFLAGS=-lm
+LDFLAGS=-lm -lmpfr
 FILES=util.c qr.c
 COLFILES=qr_col.c
 HEADERS=qr.h
