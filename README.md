@@ -29,5 +29,6 @@ The tests were run on a Phenom II X6 1100T running at 3.3GHz.
 Possible future additions
 -------------------------
 
-- A `struct` to represent the matrices and their bounds;
-- MPFR-backed batrices for operations with multiple precision floating point numbers.
+- [x] A `struct` to represent the matrices and their bounds;
+- [ ] Manage the memory as a large array, and not as an array of arrays;
+- [ ] MPFR-backed batrices for operations with multiple precision floating point numbers.
