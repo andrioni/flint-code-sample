@@ -23,3 +23,11 @@ Two versions are currently available: one "naive" using the algorithm directly, 
 | 100 x 100   | 0.013s   | 0.020s       |
 | 500 x 500   | 2.067s   | 0.350s       |
 | 1000 x 1000 | 39.306s  | 3.766s       |
+
+The tests were run on a Phenom II X6 1100T running at 3.3GHz.
+
+Possible future additions
+-------------------------
+
+- A `struct` to represent the matrices and their bounds;
+- MPFR-backed batrices for operations with multiple precision floating point numbers.
