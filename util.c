@@ -66,7 +66,7 @@ input_matrix_d(double **A, size_t m, size_t n)
 }
 
 void
-free_matrix_d(double **A, size_t m)
+free_matrix_d(double **A, size_t m, size_t n)
 {
     int i;
     for (i = 0; i < m; ++i)
@@ -91,4 +91,44 @@ matmul_dd(double **rop, double **A, double **B, size_t m, size_t n, size_t p)
             }
         }
     }
+}
+
+void
+mat_d_init(mat_d_ptr A, size_t m, size_t n)
+{
+    A->rows = m;
+    A->cols = n;
+    A->matrix = alloc_matrix_d(m, n);
+}
+
+void
+mat_d_input(mat_d_ptr A)
+{
+    input_matrix_d(A->matrix, A->rows, A->cols);
+}
+
+void
+mat_d_clear(mat_d_ptr A)
+{
+    free_matrix_d(A->matrix, A->rows, A->cols);
+}
+
+void
+mat_d_print(mat_d_ptr A)
+{
+    print_matrix_d(A->matrix, A->rows, A->cols);
+}
+
+void
+mat_d_set_d(mat_d_ptr rop, double **inp)
+{
+    copy_matrix_dd(rop->matrix, inp, rop->rows, rop->cols);
+}
+
+void
+mat_d_set_md(mat_d_ptr rop, mat_d_ptr inp)
+{
+    mat_d_clear(rop);
+    mat_d_init(rop, inp->rows, inp->cols);
+    copy_matrix_dd(rop->matrix, inp->matrix, inp->rows, inp->cols);
 }

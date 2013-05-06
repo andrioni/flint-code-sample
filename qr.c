@@ -41,6 +41,12 @@ gram_schmidt_d(double **rop, double **input, size_t m, size_t n)
 }
 
 void
+gram_schmidt_md(mat_d_ptr rop, mat_d_ptr input)
+{
+    gram_schmidt_d(rop->matrix, input->matrix, input->rows, input->cols);
+}
+
+void
 qr_d(double **rop_q, double **rop_r, double **input, size_t m, size_t n)
 {
     int i, j, k;
@@ -80,11 +86,19 @@ qr_d(double **rop_q, double **rop_r, double **input, size_t m, size_t n)
     }
 }
 
+void
+qr_md(mat_d_ptr rop_q, mat_d_ptr rop_r, mat_d_ptr input)
+{
+    qr_d(rop_q->matrix, rop_r->matrix, input->matrix, input->rows,
+         input->cols);
+}
+
 int
 main(void)
 {
     int m, n;
     double **A, **B, **Q, **R, **QR;
+    mat_d_t A2, B2, Q2, R2;
     scanf("%20d", &m);
     scanf("%20d", &n);
 
@@ -100,8 +114,16 @@ main(void)
     R = alloc_matrix_d(n, n);
     QR = alloc_matrix_d(m, n);
 
+    mat_d_init(A2, m, n);
+    mat_d_init(B2, m, n);
+    mat_d_init(Q2, m, n);
+    mat_d_init(R2, n, n);
+
     input_matrix_d(A, m, n);
     copy_matrix_dd(B, A, m, n);
+
+    mat_d_set_d(A2, A);
+    mat_d_set_md(B2, A2);
 
 #if PRINTOUTPUT == 1
     printf("Gram-Schmidt orthogonalization\n");
@@ -123,11 +145,30 @@ main(void)
     print_matrix_d(R, n, n);
 #endif
 
-    free_matrix_d(A, m);
-    free_matrix_d(B, m);
-    free_matrix_d(Q, m);
-    free_matrix_d(R, n);
-    free_matrix_d(QR, m);
+    free_matrix_d(A, m, n);
+    free_matrix_d(B, m, n);
+    free_matrix_d(Q, m, n);
+    free_matrix_d(R, n, n);
+    free_matrix_d(QR, m, n);
+
+#if PRINTOUTPUT == 1
+    printf("New implementation with structs\n");
+    printf("Gram-Schmidt orthogonalization\n");
+    gram_schmidt_md(B2, A2);
+    mat_d_print(B2);
+
+    printf("QR factorization\n");
+    qr_md(Q2, R2, A2);
+    printf("Q = \n");
+    mat_d_print(Q2);
+    printf("R = \n");
+    mat_d_print(R2);
+#endif
+
+    mat_d_clear(A2);
+    mat_d_clear(B2);
+    mat_d_clear(Q2);
+    mat_d_clear(R2);
 
     return 0;
 }

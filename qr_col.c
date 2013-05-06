@@ -71,7 +71,7 @@ input_matrix_d(double **A, size_t m, size_t n)
 }
 
 void
-free_matrix_d(double **A, size_t n)
+free_matrix_d(double **A, size_t m, size_t n)
 {
     int j;
     for (j = 0; j < n; ++j)
@@ -218,11 +218,11 @@ main(void)
     print_matrix_d(R, n, n);
 #endif
 
-    free_matrix_d(A, m);
-    free_matrix_d(B, m);
-    free_matrix_d(Q, m);
-    free_matrix_d(R, n);
-    free_matrix_d(QR, m);
+    free_matrix_d(A, m, n);
+    free_matrix_d(B, m, n);
+    free_matrix_d(Q, m, n);
+    free_matrix_d(R, n, n);
+    free_matrix_d(QR, m, n);
 
     return 0;
 }
