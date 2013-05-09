@@ -3,3 +3,4 @@ qr
 *.out.*
 colqr
 qr_col
+qr_mpfr

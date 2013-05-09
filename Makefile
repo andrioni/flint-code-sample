@@ -1,10 +1,12 @@
 CC=gcc
 CFLAGS=-O3 -ansi -Wall -Werror -pedantic
 DEBUGFLAGS=-g -ansi -Wall -Werror -pedantic
-LDFLAGS=-lm -lmpfr
+LDFLAGS=-lm -lmpfr -lgmp
 FILES=util.c qr.c
 COLFILES=qr_col.c
 HEADERS=qr.h
+MPFRFILES=qr_mpfr.c
+MPFRHEADERS=qr_mpfr.h
 
 all: normal col
 
@@ -39,3 +41,6 @@ bench: noprint
 	time ./qr_col < test/100x100.data
 	time ./qr_col < test/500x500.data
 	time ./qr_col < test/1000x1000.data
+
+mpfr:
+	$(CC) -g $(CFLAGS) $(LDFLAGS) $(MPFRFILES) -o qr_mpfr
