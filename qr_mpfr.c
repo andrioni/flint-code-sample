@@ -108,7 +108,7 @@ mat_fr_print(mat_fr_ptr A)
     {
         for (j = 0; j < A->cols; ++j)
         {
-            mpfr_printf("%30.15Rf ", mat_fr_get(A, i, j));
+            mpfr_printf("%20.10Rf ", mat_fr_get(A, i, j));
         }
         printf("\n");
     }
@@ -179,8 +179,9 @@ main(void)
 
     mat_fr_init(A, m, n, 256);
     mat_fr_input_d(A, ROUNDINGMODE);
-    /* mat_fr_print(A); */
     gram_schmidt_mat_fr(A, A, ROUNDINGMODE);
+
+    printf("Gram-Schmidt orthogonalization\n");
     mat_fr_print(A);
     mat_fr_clear(A);
     return 0;
