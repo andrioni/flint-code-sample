@@ -30,5 +30,12 @@ Possible future additions
 -------------------------
 
 - [x] A `struct` to represent the matrices and their bounds;
+- [x] MPFR-backed matrices for operations with multiple precision floating point numbers.
 - [ ] Manage the memory as a large array, and not as an array of arrays;
-- [ ] MPFR-backed batrices for operations with multiple precision floating point numbers.
+
+Usage
+-----
+
+- `make` - builds the both the "naive" (as `qr`) and the optimized versions (as `qr_col`).
+- `make mpfr` - builds the MPFR-backed version as `qr_mpfr`, currently it only does Gram-Schmidt orthogonalization, not the QR factorization.
+- `make bench` - builds and runs both the "naive" and the optimized versions and runs them against the three matrices in `/test`: one 100x100, one 500x500 and the last 1000x1000.
